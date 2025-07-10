@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Edit Alat - Rental UMKM</title>
+    <link href="/static/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="/static/css/sb-admin-2.min.css" rel="stylesheet">
+</head>
+
+<body id="page-top">
+    <div id="wrapper">
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                     <a href="/dashboard" class="btn btn-link d-md-none rounded-circle mr-3"><i class="fa fa-arrow-left"></i></a>
+                    <span class="navbar-brand mb-0 h1">Rental UMKM</span>
+                </nav>
+                <div class="container-fluid">
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">Edit Data Alat</h1>
+                    </div>
+                    <div class="card shadow mb-4">
+                         <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Formulir Edit Data</h6>
+                        </div>
+                        <div class="card-body">
+                            <form action="/alat/proses-update" method="post">
+                                <input type="hidden" name="id" value="{{.Alat.ID}}">
+                                <div class="form-group">
+                                    <label for="nama_alat">Nama Alat</label>
+                                    <input type="text" class="form-control" id="nama_alat" name="nama_alat" value="{{.Alat.NamaAlat}}" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="deskripsi">Deskripsi</label>
+                                    <textarea class="form-control" id="deskripsi" name="deskripsi" rows="3">{{.Alat.Deskripsi}}</textarea>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <label for="jumlah_total">Jumlah Total</label>
+                                        <input type="number" class="form-control" id="jumlah_total" name="jumlah_total" value="{{.Alat.JumlahTotal}}" required min="1">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="jumlah_tersedia">Jumlah Tersedia</label>
+                                        <input type="number" class="form-control" id="jumlah_tersedia" name="jumlah_tersedia" value="{{.Alat.JumlahTersedia}}" required min="0">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="harga_sewa_per_hari">Harga Sewa/Hari</label>
+                                        <input type="number" class="form-control" id="harga_sewa_per_hari" name="harga_sewa_per_hari" value="{{.Alat.HargaSewaPerHari}}" required step="500" min="0">
+                                    </div>
+                                </div>
+                                <hr>
+                                <a href="/dashboard" class="btn btn-secondary">Batal</a>
+                                <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/static/vendor/jquery/jquery.min.js"></script>
+    <script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="/static/js/sb-admin-2.min.js"></script>
+</body>
+</html>

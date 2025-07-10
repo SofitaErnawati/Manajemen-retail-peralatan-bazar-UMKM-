@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Dashboard - Rental UMKM</title>
+    <link href="/static/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="/static/css/sb-admin-2.min.css" rel="stylesheet">
+</head>
+
+<body id="page-top">
+    <div id="wrapper">
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                    <span class="navbar-brand mb-0 h1">Rental UMKM</span>
+                    <ul class="navbar-nav ml-auto">
+                        <div class="topbar-divider d-none d-sm-block"></div>
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{.NamaLengkap}}</span>
+                                <i class="fas fa-user-circle fa-lg"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="/logout">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Logout
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="container-fluid">
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+                    </div>
+
+                    {{if .SuccessMessage}}
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{range .SuccessMessage}}{{.}}{{end}}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    </div>
+                    {{end}}
+
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                            <h6 class="m-0 font-weight-bold text-primary">Daftar Alat</h6>
+                            <div>
+                                <a href="/alat/tambah" class="btn btn-primary btn-sm mr-2"><i class="fas fa-plus fa-sm"></i> Tambah Alat</a>
+                                <div class="dropdown d-inline-block">
+                                    <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
+                                        <i class="fas fa-print fa-sm"></i> Cetak Laporan
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <a class="dropdown-item" href="/report?format=pdf" target="_blank">Cetak PDF</a>
+                                        <a class="dropdown-item" href="/report?format=excel" target="_blank">Ekspor ke Excel</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Nama Alat</th>
+                                            <th>Deskripsi</th>
+                                            <th>Stok</th>
+                                            <th>Harga/Hari (Rp)</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {{range .DaftarAlat}}
+                                        <tr>
+                                            <td>{{.ID}}</td>
+                                            <td>{{.NamaAlat}}</td>
+                                            <td>{{.Deskripsi}}</td>
+                                            <td>{{.JumlahTersedia}} / {{.JumlahTotal}}</td>
+                                            <td>{{.HargaSewaPerHari}}</td>
+                                            <td>
+                                                <a href="/alat/edit?id={{.ID}}" class="btn btn-warning btn-circle btn-sm" title="Edit">
+                                                    <i class="fas fa-pen"></i>
+                                                </a>
+                                                <form action="/alat/hapus" method="post" class="d-inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?');">
+                                                    <input type="hidden" name="id" value="{{.ID}}">
+                                                    <button type="submit" class="btn btn-danger btn-circle btn-sm" title="Hapus">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                        {{else}}
+                                        <tr>
+                                            <td colspan="6" class="text-center">Belum ada data alat.</td>
+                                        </tr>
+                                        {{end}}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    <script src="/static/vendor/jquery/jquery.min.js"></script>
+    <script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="/static/js/sb-admin-2.min.js"></script>
+</body>
+</html>
